@@ -1,11 +1,12 @@
-# Imperial_College_Capstone
+# Imperial College Capstone
 Capstone Project for Imperial College Machine Learning Course
-Section 1: Project Overview
+
+## Section 1: Project Overview
 
 The purpose of the project is to understand the nature of 8 different “black box” functions. The exact nature of each function is unknown, the only starting information given is the output value of the function for a small set of inputs. Over the course of 13 weeks, more observations of each function can be made, with the ultimate objective of learning an approximation of each function sufficient to identify high-performing input regions under a strict query budget. The main task is to determine the set of input values that maximises the output value for each function. However, it is also important to demonstrate a robust and methodical approach for tackling the problem and to demonstrate understanding of ML techniques. This is a black-box optimization problem.
 This mirrors real-world scenarios such as hyperparameter tuning or experimental optimisation, where evaluations are costly and the underlying system is not directly observable.
 
-Section 2: Inputs and Outputs
+## Section 2: Inputs and Outputs
 Each function maps an n-dimensional input vector to a scalar output.
 The starting dataset is a set of inputs and outputs for each function.
 Each week one new input vector may be requested for each function, producing one output value which is appended to the set of observations.
@@ -32,22 +33,35 @@ Example input (Function 2):
 Example output:
 0.847200
 
-Section 3: Challenge Objectives
+## Section 3: Challenge Objectives
 The main goal is to maximise each function. Only a total of 13 queries are permitted, one per week, with a delay of up to 24 hours between submitting the inputs and receiving the new output values for that week.
 The key challenge is maximising performance under a strict query budget, requiring each query to provide maximum information gain.
 
 
-Section 4: Technical Approach
-Bayesian optimization
-Transformation: The available function outputs were transformed to make them easier to optimize. Transformations varied by round and by function and included normalization, log transform and Yeo-Johnson power transform
-Gaussian Process: The kernels and lengthscale parameterizations used to fit the Gaussian process varied by round and by function
-Acquisition function: The general approach was to use a ucb acquisition function, initially with high beta (2.5) reducing gradually as the rounds progressed
-SVM filter: An SVM model to identify regions with high probability of large values was introduced as an additional filter on the search space
+## Section 4: Technical Approach
 
-Functions 1 and 8 have adopted bespoke processes. For function 1 a simple grid search aiming to cover he unsampled areas has been adopted, and for function 8 a “Turbo” approach has ben implemented.
+The primary method is Bayesian optimisation, with the following components:
+
+- **Transformation:** function outputs were transformed to improve the surrogate fit. Transformations varied by round and function — standardisation, log, and Yeo–Johnson power transform.
+- **Gaussian Process:** the kernels and lengthscale parameterisations varied by round and function (ARD Matérn and RBF kernels with a learnable noise term).
+- **Acquisition function:** primarily UCB, initially with high β (2.5) reducing gradually across rounds to shift from exploration to exploitation.
+- **SVM filter:** an SVM classifier identifying high-value regions was added as a filter on the search space.
+
+Functions 1 and 8 use bespoke processes:
+- **Function 1:** Bayesian optimisation was replaced with space-filling coverage sampling, as the sparse-signal data could not be fitted by a Gaussian process.
+- **Function 8:** a trust-region approach (TuRBO) was implemented for this higher-dimensional function.
 
 More details are available in the model card and the week by week submission details.
 
 ## Documentation 
 - [Datasheet](docs/datasheet.md) — dataset composition, collection, and intended uses 
 - [Model card](docs/model_card.md) — the optimisation approach in detail
+
+
+## Environment
+
+Developed with Python 3.13.9. Install dependencies with:
+
+```
+pip install -r requirements.txt
+```
