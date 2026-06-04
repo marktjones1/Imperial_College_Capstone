@@ -1,57 +1,71 @@
-Overview: 
-Model name: Capstone Black Box Optimisation Pipeline
-Version: Final Project Submission (July 2026) – v1.0
-Model type: Sequential black-box optimisation algorithm using Gaussian Process surrogate modelling and acquisition-function-based query selection.
+## Overview
+
+### Model name:
+Capstone Black Box Optimisation Pipeline
+
+### Version: 
+Final Project Submission (July 2026) – v1.0
+
+### Model type: 
+Sequential black-box optimisation algorithm using Gaussian Process surrogate modelling and acquisition-function-based query selection.
 This optimisation approach was developed for the 2026 Black Box Optimisation (BBO) Challenge as part of the Imperial College Professional Certificate in Machine Learning and Artificial Intelligence. The objective was to identify high-performing regions of eight unknown objective functions using a limited budget of evaluations.
 
-Intended use: 
 
-Appropriate Uses
+
+
+## Intended use 
+
+### Appropriate Uses
 This approach is intended for:
 •	Expensive black-box optimisation problems.
 •	Problems where objective function evaluations are costly.
 •	Continuous optimisation tasks with limited evaluation budgets.
 •	Sequential experimentation where new observations can be incorporated iteratively.
 Examples given in the project background documentation include radiation detection, hyperparameter tuning, and scientific drug experimentation.
-Inappropriate Uses
+
+### Inappropriate Uses
 This approach should not be used for:
 •	High-dimensional optimisation problems beyond the practical limits of Gaussian Process modelling.
 •	Situations requiring immediate real-time decisions.
 •	Problems where objective functions are highly discontinuous or noisy.
 •	Applications requiring guarantees of finding a global optimum.
 
-Details: 
+
+
+## Details 
 
 The main stages of the process were:
 1) Collection of latest evaluations from capstone portal
 2) Transformation applied to data to improve model fit
-3)Fit data to Gaussian Process surrogate model, using appropriate kernel
-4)Apply an acquisition function, tuned to apply an appropriate balance between exploration and exploitation
+3) Fit data to Gaussian Process surrogate model, using appropriate kernel
+4) Apply an acquisition function, tuned to apply an appropriate balance between exploration and exploitation
 5) Evaluate this acquisition function on a grid of points covering the search space. The grid was generated using Latin Hypercube sampling to effectively cover the search space.
 6) Select the highest scoring point as the next evaluation point and submit in the Capstone portal.
 
-The evolution of the strategy was 
+The evolution of the strategy was: 
 
-Early Rounds
- -Standard Gaussian Process surrogate modelling using rbf kernel
+### Early Rounds
+-Standard Gaussian Process surrogate modelling using rbf kernel
 -Basic acquisition function tuning. Biased to exploration (ucb with beta parameter = 2.5)
 -Limited preprocessing.
 -Latin Hypercube for grid coverage
 
-Intermediate Rounds
+### Intermediate Rounds
 -	Alternative kernel approaches introduced
 -	Additional transformation approaches
 -	Reduction in ucb beta parameter in acquisition function to begin pivot to exploitation-based search.
 -	Introduction of “exclusion radius” parameter to ensure that optimization doesn’t get stuck evaluating points in the same area of the grid
 
-Later Rounds
+### Later Rounds
 -	Multiple kernel approach introduced for some functions
 -	Additional filtering of the search space using Support Vector machine model
 -	“Turbo” approach introduced for function 8
 -	Function 1 removed from Bayesian optimization process in favour of pure coverage-based search strategy, pending finding a plausible maximum region.
 -	Further reduction in ucb beta parameter to continue pivot to exploitation.
 
-Performance: 
+
+
+## Performance 
 Performance was evaluated using the objective values obtained for each of the eight black-box functions. The main metric tracked was best objective value discovered.
 Progress was intentionally nonlinear, it was necessary in earlier rounds to evaluate points in the function space that were unlikely to be  optimal, but would assist in building an overall picture of the function behaviour that could be refined in later rounds.
 
@@ -92,14 +106,18 @@ Function 8  —  3 new max(es) across 9 rounds:
 Gains are presented in original output units (not transformed values)
 Function 1 is the only one where the process has so far failed to identify a new maximum. 
 
-Assumptions and limitations: 
-Assumptions
+
+
+## Assumptions and limitations 
+
+### Assumptions
 The optimisation strategy assumes:
 •	The objective function is sufficiently smooth and lacking discontinuities.
 •	The objective function can be reasonably approximated by a Gaussian Process.
 •	Historical evaluations provide useful information about unexplored regions.
 •	Data transformations can be applied appropriately to improve surrogate model quality.
-Limitations
+
+### Limitations
 Several limitations were identified:
 •	Gaussian Processes scale poorly with increasing dimensionality and dataset size.
 •	Performance depends heavily on kernel selection and hyperparameter tuning.
@@ -107,7 +125,8 @@ Several limitations were identified:
 •	Acquisition functions may fail to distinguish between valuable and non-valuable areas if the noise parameter collapses to zero, meaning that search is random rather than driven by exploitation/exploration criteria.
 •	Transformations are function specific. A transformation that improves performance on one function may degrade performance on another.
 •	The approach is sensitive to early observations because initial samples influence subsequent exploration.
-Failure Modes
+
+### Failure Modes
 Potential failure modes include:
 •	Over-exploitation of regions incorrectly predicted to be promising.
 •	Poor uncertainty estimates leading to inadequate exploration.
@@ -115,7 +134,9 @@ Potential failure modes include:
 •	Reduced effectiveness on highly irregular or discontinuous functions.
 •	Insufficient number of iterations available to converge on an optimal value
 
-Ethical considerations: 
+
+
+## Ethical considerations 
 Although developed for a benchmark optimisation challenge, transparency remains important for reproducibility and responsible deployment.
 Documenting the optimisation process enables:
 •	Reproduction of results by other researchers.
@@ -126,7 +147,8 @@ Documenting the optimisation process enables:
 This is particularly important for this project where the strategy, code and approaches have evolved significantly as the rounds progressed.
 
 
-Reflection
+
+## Reflection
 
 The approach is a combination of formal optimization techniques such as Bayesian optimization, augmented by human judgement to identify edge cases or areas where the standard approach needs to be refined.
 The documentation structure provides high level details of the approach followed. More detail is available in the round by round logs saved at https://github.com/marktjones1/Imperial_College_Capstone/new/main
