@@ -1,0 +1,153 @@
+Week 3 Capstone
+
+
+i) Outputs normalized for all functions (except function 1) – subtract the mean of all values and divide by the standard deviation of those values. For function 1 use log scaling on the y output values due to the substantially different orders of magnitude
+ii) Aim to start evolving strategy away from exploration where this hasn’t yet produced a new maximum, and continue exploring when this is still producing new maxima.  Calibrate a Gaussian Process with ucb acquisition function with beta parameter set to 2.5 (GP parameters were noise_assumption = 0.1 and rbf lengthscale =0.2) (Noise assumption parameter increased from previous weeks in an attempt to to reduce overfitting to sparse observations and increase uncertainty estimates in the acquisition function)
+iii) Evaluate the value of this function across 10000 points randomly sampled in the n*[0,1] hypercube of potential input values (this is to try and get better coverage of the potential space for the higher dimensional functions 6,7,8)
+iv) Review alternative calibrations ucb, ei, pi acquisition functions  with beta = (0.5,1.0,1.96,2.5,3) and xi = (0,0.01,0.05,0.1,0.2), noise parameter (1e-8,1e-6,1e-4, 0.01,0.1) to gain a view of how close this value is to the consensus across alternative models.
+
+
+*********************************************************************************
+
+Testing function : 1
+Using Model : ucb
+Beta : 2.5
+normalise_Y : False
+noise_assumption : 0.1
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.0001, 1.0)
+Model Kernel :  RBF(length_scale=0.2)
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 2.3706610553743452
+
+X_next: 0.988139-0.003201
+
+
+*********************************************************************************
+Testing function : 2
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 0.0001
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.0001, 1.0)
+Model Kernel :  RBF(length_scale=0.2)
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 3.763364031371508
+
+X_next: 0.587135-0.999144
+
+
+
+
+*********************************************************************************
+Testing function : 3
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 0.0001
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.0001, 1.0)
+Model Kernel :  RBF(length_scale=0.2)
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 2.625149293317854
+
+X_next: 0.686219-0.965295-0.008061
+
+
+
+
+
+*********************************************************************************
+Testing function : 4
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 0.0001
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.0001, 1.0)
+Model Kernel :  RBF(length_scale=0.2)
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 3.2760325229707
+
+X_next: 0.479035-0.661667-0.470997-0.414172
+
+
+
+
+*********************************************************************************
+Testing function : 5
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 0.0001
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.0001, 1.0)
+Model Kernel :  RBF(length_scale=0.2)
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 4.189110288788666
+
+X_next: 0.448017-0.700329-0.877185-0.931868
+
+*********************************************************************************
+Testing function : 6
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 0.0001
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.0001, 1.0)
+Model Kernel :  RBF(length_scale=0.2)
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 3.6822698360035018
+
+X_next: 0.633504-0.263966-0.548564-0.753416-0.180329
+
+
+
+*********************************************************************************
+Testing function : 7
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 0.0001
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.0001, 1.0)
+Model Kernel :  RBF(length_scale=0.2)
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 4.295514627594897
+
+X_next: 0.161154-0.286408-0.401222-0.289917-0.297488-0.609622
+
+
+*********************************************************************************
+Testing function : 8
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 0.0001
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.0001, 1.0)
+Model Kernel :  RBF(length_scale=0.2)
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 3.0169182667452725
+
+X_next: 0.234975-0.024894-0.039076-0.042315-0.524540-0.790153-0.520251-0.943500
+
+

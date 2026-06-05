@@ -1,0 +1,192 @@
+Week 6 Capstone
+
+i) Outputs normalized for functions 2–8 – subtract the mean and divide by the standard deviation. Function 1 continues to use rank (quantile) scaling of the y output values (transform_Y = True), retained from Round 5 as it remains more robust to function 1's extreme dynamic range than log or standard scaling.
+ii) Continue the pivot towards exploitation, holding the ucb beta parameter at 1.96 across all functions. The main modelling change this round was to function 1's kernel: the RBF body was replaced with a Matérn kernel (? = 2.5), combined with a WhiteKernel so signal variance and noise are estimated explicitly. The fitted kernel for function 1 was 0.0316² · Matérn(length_scale=[0.01, 0.01], ?=2.5) + WhiteKernel(noise_level=0.899). Note that both lengthscales pinned to the lower bound (0.01) and the noise level fitted to 0.90, confirming that the surrogate is finding very little usable structure in function 1 and is treating almost all of its observations as noise — the Matérn change improves the modelling assumption but does not overcome the fundamental sparsity of signal in this function. Functions 2–8 retained a single RBF kernel with lengthscale fitted dynamically within bounds (0.01, 10.0); fitted lengthscales this round ranged from 0.064 (function 2, a tight/jagged fit) to 1.21 (function 8, a long/smooth fit).
+iii) Evaluate the value of the function across 10000 points sampled by Latin Hypercube in the n·[0,1] hypercube of potential input values, retaining quasi-random coverage for the higher-dimensional functions (6, 7, 8). An exclusion-zone mechanism was active in the point-selection step: candidate points within a fixed exclusion radius of 0.03 of any already-evaluated point have their acquisition value set to ?? before the maximum is taken, preventing the optimiser from re-proposing the same or near-identical points. The effect is visible in this round's proposals — function 1's x_next sits 0.031 from its nearest existing point (just outside the exclusion radius), while the higher-dimensional functions naturally proposed points much further out (function 8 at distance 0.69, function 5 at 0.40)
+
+*********************************************************************************
+
+Testing function : 1
+
+X coordinate of current max : 0.731024-0.733000
+Using Model : ucb
+Beta : 1.96
+normalise_Y : False
+transform_Y : True
+noise_assumption : 0.1
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.01, 10.0)
+Model Kernel :  0.0316**2 * Matern(length_scale=[0.01, 0.01], nu=2.5) + WhiteKernel(noise_level=0.899)
+Max grid points : 10000
+Using Latin Hypercube : True
+
+X_next: 0.761128-0.727887
+
+Distance from x_next to nearest training point: 0.030536
+
+Max acquisition: 1.859572554339187
+
+
+
+
+*********************************************************************************
+Testing function : 2
+
+X coordinate of current max : 0.702977-0.174143
+Using Model : ucb
+Beta : 1.96
+normalise_Y : True
+transform_Y : False
+noise_assumption : 0.1
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.01, 10.0)
+Model Kernel :  RBF(length_scale=0.0637)
+Max grid points : 10000
+Using Latin Hypercube : True
+
+X_next: 0.747550-0.132393
+
+Distance from x_next to nearest training point: 0.061072
+
+
+
+*********************************************************************************
+Testing function : 3
+
+X coordinate of current max : 0.400000-0.400000-0.500000
+Using Model : ucb
+Beta : 1.96
+normalise_Y : True
+transform_Y : False
+noise_assumption : 0.1
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.01, 10.0)
+Model Kernel :  RBF(length_scale=0.222)
+Max grid points : 10000
+Using Latin Hypercube : True
+
+X_next: 0.009577-0.017845-0.580557
+
+Distance from x_next to nearest training point: 0.267281
+
+
+
+
+*********************************************************************************
+Testing function : 4
+
+X coordinate of current max : 0.344979-0.442830-0.409130-0.411514
+Using Model : ucb
+Beta : 1.96
+normalise_Y : True
+transform_Y : False
+noise_assumption : 0.1
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.01, 10.0)
+Model Kernel :  RBF(length_scale=0.491)
+Max grid points : 10000
+Using Latin Hypercube : True
+
+X_next: 0.320989-0.448133-0.475553-0.470419
+
+Distance from x_next to nearest training point: 0.092116
+
+Max acquisition: 1.894272855354556
+
+
+
+
+*********************************************************************************
+Testing function : 5
+
+X coordinate of current max : 0.477220-0.584508-0.980710-0.998791
+Using Model : ucb
+Beta : 1.96
+normalise_Y : True
+transform_Y : False
+noise_assumption : 0.1
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.01, 10.0)
+Model Kernel :  RBF(length_scale=0.676)
+Max grid points : 10000
+Using Latin Hypercube : True
+
+X_next: 0.159365-0.178350-0.984105-0.977938
+
+Distance from x_next to nearest training point: 0.396335
+
+Max acquisition: 2.268406023985887
+
+
+*********************************************************************************
+Testing function : 6
+
+X coordinate of current max : 0.424306-0.297602-0.511090-0.732359-0.150509
+Using Model : ucb
+Beta : 1.96
+normalise_Y : True
+transform_Y : False
+noise_assumption : 0.1
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.01, 10.0)
+Model Kernel :  RBF(length_scale=0.55)
+Max grid points : 10000
+Using Latin Hypercube : True
+
+X_next: 0.387820-0.324020-0.502046-0.547600-0.000261
+
+Distance from x_next to nearest training point: 0.242531
+
+Max acquisition: 2.2548962236993564
+
+
+
+
+*********************************************************************************
+
+Testing function : 7
+
+X coordinate of current max : 0.161154-0.286408-0.401222-0.289917-0.297488-0.609622
+Using Model : ucb
+Beta : 1.96
+normalise_Y : True
+transform_Y : False
+noise_assumption : 0.1
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.01, 10.0)
+Model Kernel :  RBF(length_scale=0.402)
+Max grid points : 10000
+Using Latin Hypercube : True
+
+X_next: 0.165071-0.251885-0.511388-0.279994-0.254121-0.905254
+
+Distance from x_next to nearest training point: 0.236512
+
+Max acquisition: 3.090791057385165
+
+
+
+
+
+*********************************************************************************
+
+Testing function : 8
+
+X coordinate of current max : 0.000000-0.000000-0.000000-0.000000-1.000000-0.500000-0.000000-0.500000
+Using Model : ucb
+Beta : 1.96
+normalise_Y : True
+transform_Y : False
+noise_assumption : 0.1
+rbf_lengthscale : 0.2
+Lengthscale Bounds : (0.01, 10.0)
+Model Kernel :  RBF(length_scale=1.21)
+Max grid points : 10000
+Using Latin Hypercube : True
+
+X_next: 0.043602-0.173259-0.106721-0.201692-0.341544-0.349120-0.056008-0.573918
+
+Distance from x_next to nearest training point: 0.693605
+
+Max acquisition: 2.2973734150418483
+

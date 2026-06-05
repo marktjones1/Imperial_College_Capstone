@@ -1,0 +1,120 @@
+Week 1 Capstone
+
+
+Strategy
+i) Outputs normalized for all functions (except function 1) – subtract the mean of all values and divide by the standard deviation of those values.
+ii) Aim to prioritise exploration. Calibrate a Gaussian Process with ucb acquisition function with beta parameter set to 2.5 (GP parameters were noise_assumption = 1e-6 and rbf lengthscale =0.2). This value of beta is sufficiently high that the model should be biased strongly towards evaluating areas with high uncertainty.
+iii) Evaluate the value of this function across 10000 points equally spaced in the n*[0,1] hypercube of potential input values
+iv) Review alternative calibrations: ucb, ei, pi acquisition functions  with beta = (0.5,1.0,1.96,2.5,3) and xi = (0,0.01,0.05,0.1,0.2) to gain a view of how close this value is to the consensus across alternative models (to be used in future strategy evaluation).
+
+*********************************************************************************
+Testing function : 1
+Using Model : ucb
+Beta : 2.5
+normalise_Y : False
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+
+Max acquisition: 0.00886108550060227
+
+X_next: 0.000000-1.000000
+
+*********************************************************************************
+Testing function : 2
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+
+Max acquisition: 3.299063475688812
+
+X_next: 0.818182-0.979798
+
+
+*********************************************************************************
+Testing function : 3
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+
+Max acquisition: 2.8986667603449074
+
+X_next: 0.400000-0.400000-0.500000
+
+*********************************************************************************
+Testing function : 4
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+
+Max acquisition: 2.6456029960476366
+
+X_next: 0.444444-0.444444-0.333333-0.444444
+
+
+
+
+
+*********************************************************************************
+Testing function : 5
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+
+Max acquisition: 4.863056256481222
+
+X_next: 0.333333-0.777778-1.000000-0.888889
+
+*********************************************************************************
+Testing function : 6
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+
+Max acquisition: 2.7743105965981973
+
+X_next: 0.600000-0.400000-0.200000-0.800000-0.400000
+
+*********************************************************************************
+
+
+Testing function : 7
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+
+Max acquisition: 4.4874215359959235
+
+X_next: 0.000000-0.333333-0.333333-0.333333-0.333333-0.666667
+
+*********************************************************************************
+Testing function : 8
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+
+Max acquisition: 3.6163312950877606
+
+X_next: 0.000000-0.000000-0.000000-0.000000-1.000000-0.500000-0.000000-0.500000
+

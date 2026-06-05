@@ -1,0 +1,138 @@
+Week 2 Capstone
+
+
+Strategy
+i) Outputs normalized for all functions (except function 1) – subtract the mean of all values and divide by the standard deviation of those values. 
+ii) Aim to continue prioritizing exploration. Calibrate a ucb acquisition function with beta parameter set to 2.5 (GP parameters were noise_assumption = 1e-6 and rbf lengthscale =0.2). These parameters were all consistent with Round 1
+iii) Evaluate the value of this function across 10000 points randomly sampled in the n*[0,1] hypercube of potential input values (this is to try and get better coverage of the potential space for the higher dimensional functions 6,7,8). This was a change from round 1 as I determined that, particularly for the higher dimensional functions, the grid search were scaling exponentially with the number of dimensions (An alternative would have been to spend additional compute time by increasing the number of points in the search grid but this just made the environment unstable and prone to crashing)
+iv) Review alternative calibrations ucb, ei, pi acquisition functions  with beta = (0.5,1.0,1.96,2.5,3) and xi = (0,0.01,0.05,0.1,0.2) to gain a view of how close this value is to the consensus across alternative models (to be used in future strategy evaluation).
+
+
+
+*********************************************************************************
+Testing function : 1
+Using Model : ucb
+Beta : 2.5
+normalise_Y : False
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 0.006181283075110444
+
+X_next: 0.991136-0.999716
+
+
+*********************************************************************************
+Testing function : 2
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 2.5025660963653626
+
+X_next: 0.700044-0.924038
+
+
+
+
+*********************************************************************************
+Testing function : 3
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 2.734528728701961
+
+X_next: 0.382079-0.082143-0.415086
+
+
+*********************************************************************************
+Testing function : 4
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 2.283290558727964
+
+X_next: 0.371555-0.443708-0.390991-0.441636
+
+
+
+*********************************************************************************
+Testing function : 5
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 4.796930745312799
+
+X_next: 0.477220-0.584508-0.980710-0.998791
+
+
+
+*********************************************************************************
+Testing function : 6
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 3.677275995093513
+
+X_next: 0.424306-0.297602-0.511090-0.732359-0.150509
+
+
+
+*********************************************************************************
+Testing function : 7
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 4.978195054407436
+
+X_next: 0.005219-0.259438-0.518928-0.314567-0.276139-0.736165
+
+
+
+
+
+*********************************************************************************
+Testing function : 8
+Using Model : ucb
+Beta : 2.5
+normalise_Y : True
+noise_assumption : 1e-06
+rbf_lengthscale : 0.1
+Max points : 10000
+Using Latin Hypercube : True
+
+Max acquisition: 3.101619975168581
+
+X_next: 0.113488-0.742519-0.035154-0.104567-0.764046-0.089689-0.088474-0.862170
+
