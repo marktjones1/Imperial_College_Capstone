@@ -3,7 +3,7 @@ Capstone Project for Imperial College Machine Learning Course
 
 ## Section 1: Project Overview
 
-The purpose of the project is to understand the nature of 8 different “black box” functions. The exact nature of each function is unknown, the only starting information given is the output value of the function for a small set of inputs. Over the course of 13 weeks, more observations of each function can be made, with the ultimate objective of learning an approximation of each function sufficient to identify high-performing input regions under a strict query budget. The main task is to determine the set of input values that maximises the output value for each function. However, it is also important to demonstrate a robust and methodical approach for tackling the problem and to demonstrate understanding of ML techniques. This is a black-box optimization problem.
+The purpose of the project is to understand the nature of 8 different “black box” functions. The exact nature of each function is unknown, the only starting information given is the output value of the function for a small set of inputs. Over the course of 13 weeks, more observations of each function can be made, with the ultimate objective of learning an approximation of each function sufficient to identify high-performing input regions under a strict query budget. The main task is to determine the set of input values that maximises the output value for each function. However, it is also important to demonstrate a robust and methodical approach for tackling the problem and to show understanding of ML techniques. This is a black-box optimization problem.
 This mirrors real-world scenarios such as hyperparameter tuning or experimental optimisation, where evaluations are costly and the underlying system is not directly observable.
 
 ## Section 2: Inputs and Outputs
@@ -44,7 +44,8 @@ The primary method is Bayesian optimisation, with the following components:
 
 - **Transformation:** function outputs were transformed to improve the surrogate fit. Transformations varied by round and function — standardisation, log, and Yeo–Johnson power transform.
 - **Gaussian Process:** the kernels and lengthscale parameterisations varied by round and function (ARD Matérn and RBF kernels with a learnable noise term).
-- **Acquisition function:** primarily UCB, initially with high β (2.5) reducing gradually across rounds to shift from exploration to exploitation.
+- **Acquisition function:** primarily UCB, initially with high β (2.5) reducing gradually across rounds to 1 to shift from exploration to exploitation.
+- **Multi-kernel selection:** for some functions, several kernels (Matérn-1.5, Matérn-2.5, RBF) were fitted and combined via Thompson sampling, hedging against the wrong smoothness assumption.
 - **SVM filter:** an SVM classifier identifying high-value regions was added as a filter on the search space.
 
 Functions 1 and 8 use bespoke processes:
