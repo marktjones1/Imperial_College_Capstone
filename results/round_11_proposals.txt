@@ -1,3 +1,5 @@
+Capstone Week 11
+
 The modular per-function pipeline was retained with parameters unchanged from Round 10 (UCB β = 1.0 for the standard-mode functions; function 1 on interior-weighted maximin; function 3 multikernel; function 8 TuRBO; SVM filter active for functions 3–8). No new configuration changes were made this round — the focus was on exploiting the established setup in the final stretch.
 i) Transforms retained per function: function 5 log; functions 4, 7 Yeo–Johnson; functions 2, 3, 6, 8 standardise; function 1 signed-log.
 ii) Acquisition held at UCB β = 1.0 for functions 2, 4, 5; Thompson sampling across kernels for the multikernel functions (3, 6, 7); Thompson sampling within the trust region for function 8. Function 1 continued with Sobol interior-weighted maximin coverage (w = 0.5).
