@@ -57,7 +57,7 @@ More details are available in the model card and the week by week submission det
 ## Documentation 
 - [Datasheet](docs/datasheet.md) — dataset composition, collection, and intended uses 
 - [Model card](docs/model_card.md) — the optimisation approach in detail
-
+- [Pipeline notebook](notebooks/Capstone_BBO.ipynb) — the working BBO pipeline code
 
 ## Environment
 
