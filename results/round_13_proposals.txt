@@ -1,0 +1,196 @@
+Capstone Week 13
+
+
+This was the final round of the project. The modular per-function pipeline was retained, with three changes this round:
+i) Candidate grid increased from 10000 to 20000 points (MAX_POINTS). The acquisition function is evaluated over a Sobol / Latin Hypercube sample of the search space; the candidate count was doubled to 20000 to give finer resolution on the location of the acquisition maximum for the final submission. The effect is most relevant for the higher-dimensional functions (7, 8), where 10000 points cover the space sparsely; for the low-dimensional functions the denser grid makes little practical difference. The change is precautionary — it ensures the selected point sits as close as possible to the true acquisition optimum — rather than a response to any observed problem.
+
+ii) Exclusion radius reduced from 0.01 to 0.005. Continuing the late-stage reduction (0.03 → 0.02 → 0.01 → 0.005) to permit the tightest possible local refinement near converged optima. At this point the exclusion radius is effectively irrelevant — recent proposals had not been landing anywhere near even the 0.01 boundary, so the reduction has no practical effect. It was made for consistency with the final-round exploitation emphasis rather than because the radius was constraining any function.
+
+iii) Function 7 reverted to standardise transform and single-kernel (standard) mode. Function 7 had been on Yeo–Johnson transform with multi-kernel Thompson sampling and had not improved since Round 3 (best 2.973). For the final round it was switched to standardisation and a single Matérn-2.5 GP with UCB (β = 1.0). This change had a marked effect on the surrogate: under standardisation the transformed output range extended to +2.667 (versus +1.656 under Yeo–Johnson), preserving a high-value tail that the power transform had compressed, and the GP fitted short lengthscales across all dimensions with a high acquisition value (max_acq = 2.78 — the strongest signal of any function this round). This suggested the standardise transform suited function 7 better than Yeo–Johnson, exposing structure the previous configuration had masked.
+Other components unchanged:
+
+UCB β = 1.0 for standard-mode functions (2, 4, 5, and now 7); Thompson sampling across kernels for the multikernel functions (3, 6); Thompson sampling within the trust region for function 8; Sobol interior-weighted maximin coverage for function 1.
+Transforms otherwise retained (function 5 log; function 4 Yeo–Johnson; functions 2, 3, 6, 8 standardise; function 1 signed-log).
+The SVM search-space filter (functions 3–8) remained active.
+
+=== Function 1  (d=2, n=22) ===
+  transform   : signed_log      Y_t mean=-0.000, std=1.000, min=-1.080, max=+1.526
+  mode        : maximin_interior
+  kernel_kind : matern25
+  svm filter  : disabled
+  x_best      : 0.731024-0.733000    (Y_raw=7.711e-16)
+  x_next      : 0.238596-0.548073    (nearest-train dist = 0.2114)
+     strategy: interior-biased maximin (w=0.5)
+     maximin_distance: 0.21140520637763327
+     interior_factor: 0.9211862654437887
+
+=== Function 2  (d=2, n=22) ===
+  transform   : standardise     Y_t mean=+0.000, std=1.000, min=-1.716, max=+1.394
+  mode        : standard
+  kernel_kind : matern25
+  acquisition : UCB   β=1
+  svm filter  : disabled
+  x_best      : 0.686300-0.869437    (Y_raw=0.7217)
+  x_next      : 0.689153-0.641741    (nearest-train dist = 0.0206)
+     acq_name: ucb
+     acq_param: 1
+     kernel_kind: matern25
+     fitted_kernel: 1.04**2 * Matern(length_scale=[0.0709, 3], nu=2.5) + WhiteKernel(noise_level=0.0494)
+     post_std_range: (0.236687454100386, 1.0548376777473316)
+     max_acq: 1.2136657097611323
+     svm_filter:
+        enabled: False
+        percentile: None
+        C: None
+        gamma: None
+        threshold: None
+        n_positive: None
+        frac_kept: 1.0
+        status: disabled
+     note: ok
+
+=== Function 3  (d=3, n=27) ===
+  transform   : standardise     Y_t mean=+0.000, std=1.000, min=-4.281, max=+1.062
+  mode        : multikernel
+  kernel_kind : matern25
+  acquisition : Thompson sampling across ('matern15', 'matern25', 'rbf')
+  svm filter  : enabled (percentile=70, C=1.0, gamma='scale')
+  x_best      : 0.676698-0.698468-0.381382    (Y_raw=-0.01738)
+  x_next      : 0.806309-0.928889-0.417377    (nearest-train dist = 0.1655)
+     chosen_kernel: matern15
+     best_sample: 2.1808027046033756
+     per_kernel: [{'kind': 'matern15', 'fitted_kernel': '1.29**2 * Matern(length_scale=[3, 3, 0.0966], nu=1.5) + WhiteKernel(noise_level=0.0183)', 'best_sample': 2.1808027046033756}, {'kind': 'matern25', 'fitted_kernel': '1.37**2 * Matern(length_scale=[3, 3, 0.0918], nu=2.5) + WhiteKernel(noise_level=0.0278)', 'best_sample': 1.8068510087418892}, {'kind': 'rbf', 'fitted_kernel': '1.42**2 * RBF(length_scale=[3, 3, 0.0736]) + WhiteKernel(noise_level=0.0328)', 'best_sample': 1.7050763662094695}]
+     svm_filter:
+        enabled: True
+        percentile: 70
+        C: 1.0
+        gamma: scale
+        threshold: 0.5950756122422024
+        n_positive: 8
+        frac_kept: 0.29864501953125
+        status: applied
+
+=== Function 4  (d=4, n=42) ===
+  transform   : yeo_johnson     Y_t mean=+0.000, std=1.000, min=-1.717, max=+1.809
+  mode        : standard
+  kernel_kind : matern25
+  acquisition : UCB   β=1
+  svm filter  : enabled (percentile=75, C=1.0, gamma='scale')
+  x_best      : 0.410228-0.427419-0.406897-0.354465    (Y_raw=0.641)
+  x_next      : 0.360360-0.378158-0.352644-0.419026    (nearest-train dist = 0.0578)
+     acq_name: ucb
+     acq_param: 1
+     kernel_kind: matern25
+     fitted_kernel: 1.09**2 * Matern(length_scale=[0.822, 0.596, 0.715, 0.703], nu=2.5) + WhiteKernel(noise_level=0.0219)
+     post_std_range: (0.1582162212439642, 0.7664995121177457)
+     max_acq: 1.6402104347359707
+     svm_filter:
+        enabled: True
+        percentile: 75
+        C: 1.0
+        gamma: scale
+        threshold: 1.0381327697558627
+        n_positive: 11
+        frac_kept: 0.05767822265625
+        status: applied
+     note: ok
+
+=== Function 5  (d=4, n=32) ===
+  transform   : log             Y_t mean=+0.000, std=1.000, min=-3.062, max=+1.436
+  mode        : standard
+  kernel_kind : matern25
+  acquisition : UCB   β=1
+  svm filter  : enabled (percentile=75, C=1.0, gamma='scale')
+  x_best      : 0.997266-0.990628-0.881919-0.977500    (Y_raw=6281)
+  x_next      : 0.986623-0.953357-0.992406-0.977525    (nearest-train dist = 0.1171)
+     acq_name: ucb
+     acq_param: 1
+     kernel_kind: matern25
+     fitted_kernel: 2.21**2 * Matern(length_scale=[2.6, 0.687, 1.22, 0.805], nu=2.5) + WhiteKernel(noise_level=1e-08)
+     post_std_range: (0.018583546649878897, 1.1002936588302104)
+     max_acq: 1.5975177477510563
+     svm_filter:
+        enabled: True
+        percentile: 75
+        C: 1.0
+        gamma: scale
+        threshold: 0.8713926013821532
+        n_positive: 9
+        frac_kept: 0.065185546875
+        status: applied
+     note: ok
+
+=== Function 6  (d=5, n=32) ===
+  transform   : standardise     Y_t mean=+0.000, std=1.000, min=-2.468, max=+1.782
+  mode        : multikernel
+  kernel_kind : matern25
+  acquisition : Thompson sampling across ('matern15', 'matern25', 'rbf')
+  svm filter  : enabled (percentile=70, C=1.0, gamma='scale')
+  x_best      : 0.484673-0.442543-0.634443-0.781477-0.015225    (Y_raw=-0.1815)
+  x_next      : 0.367293-0.377802-0.597665-0.994622-0.169048    (nearest-train dist = 0.2001)
+     chosen_kernel: matern25
+     best_sample: 2.007778218604602
+     per_kernel: [{'kind': 'matern15', 'fitted_kernel': '1.97**2 * Matern(length_scale=[1.41, 1.74, 1.78, 2.03, 3], nu=1.5) + WhiteKernel(noise_level=0.0207)', 'best_sample': 1.9564219472449746}, {'kind': 'matern25', 'fitted_kernel': '1.7**2 * Matern(length_scale=[0.936, 1.16, 1.16, 1.47, 2.34], nu=2.5) + WhiteKernel(noise_level=0.0312)', 'best_sample': 2.007778218604602}, {'kind': 'rbf', 'fitted_kernel': '1.28**2 * RBF(length_scale=[0.507, 0.655, 0.623, 1.02, 1.46]) + WhiteKernel(noise_level=0.0413)', 'best_sample': 1.924748182430932}]
+     svm_filter:
+        enabled: True
+        percentile: 70
+        C: 1.0
+        gamma: scale
+        threshold: 0.6547517772890049
+        n_positive: 10
+        frac_kept: 0.0716552734375
+        status: applied
+
+=== Function 7  (d=6, n=42) ===
+  transform   : standardise     Y_t mean=+0.000, std=1.000, min=-0.770, max=+2.667
+  mode        : standard
+  kernel_kind : matern25
+  acquisition : UCB   β=1
+  svm filter  : enabled (percentile=75, C=1.0, gamma='scale')
+  x_best      : 0.161154-0.286408-0.401222-0.289917-0.297488-0.609622    (Y_raw=2.973)
+  x_next      : 0.137609-0.106064-0.657047-0.271894-0.319088-0.576491    (nearest-train dist = 0.2364)
+     acq_name: ucb
+     acq_param: 1
+     kernel_kind: matern25
+     fitted_kernel: 0.703**2 * Matern(length_scale=[0.474, 0.707, 0.625, 0.367, 0.177, 0.384], nu=2.5) + WhiteKernel(noise_level=1e-08)
+     post_std_range: (0.15936497604006256, 0.6961969580917525)
+     max_acq: 2.7763049770550183
+     svm_filter:
+        enabled: True
+        percentile: 75
+        C: 1.0
+        gamma: scale
+        threshold: 0.36816628011269503
+        n_positive: 11
+        frac_kept: 0.047607421875
+        status: applied
+     note: ok
+
+=== Function 8  (d=8, n=52) ===
+  transform   : standardise     Y_t mean=-0.000, std=1.000, min=-2.298, max=+1.406
+  mode        : turbo
+  kernel_kind : matern25
+  acquisition : Thompson sampling in trust region (multikernel=True)
+  svm filter  : enabled (percentile=75, C=1.0, gamma='scale')
+  x_best      : 0.088269-0.129351-0.112707-0.221413-0.366363-0.399129-0.160271-0.582836    (Y_raw=9.886)
+  x_next      : 0.054559-0.083287-0.164288-0.208712-0.422823-0.353643-0.220992-0.640876    (nearest-train dist = 0.1356)
+     trust_region_L: 0.125
+     x_center: [0.088269, 0.129351, 0.112707, 0.221413, 0.366363, 0.399129, 0.160271, 0.582836]
+     chosen_kernel: matern15
+     best_sample: 1.5455717797024957
+     multikernel: True
+     n_kernels_tried: 3
+
+==============================================================================
+SUMMARY
+==============================================================================
+Func  Mode          Best Y        x_next                                                      Status
+1     maximin_interior7.711e-16     0.238596-0.548073                                           ok
+2     standard      0.7217        0.689153-0.641741                                           ok
+3     multikernel   -0.01738      0.806309-0.928889-0.417377                                  ok
+4     standard      0.641         0.360360-0.378158-0.352644-0.419026                         ok
+5     standard      6281          0.986623-0.953357-0.992406-0.977525                         ok
+6     multikernel   -0.1815       0.367293-0.377802-0.597665-0.994622-0.169048                ok
+7     standard      2.973         0.137609-0.106064-0.657047-0.271894-0.319088-0.576491       ok
+8     turbo         9.886         0.054559-0.083287-0.164288-0.208712-0.422823-0.353643-0.220992-0.640876ok
+==============================================================================
