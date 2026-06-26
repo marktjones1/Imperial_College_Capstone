@@ -69,48 +69,53 @@ The evolution of the strategy was:
 Performance was evaluated using the objective values obtained for each of the eight black-box functions. The main metric tracked was best objective value discovered.
 Progress was intentionally nonlinear, it was necessary in earlier rounds to evaluate points in the function space that were unlikely to be  optimal, but would assist in building an overall picture of the function behaviour that could be refined in later rounds.
 
-Function 1  —  0 new max(es) across 11 rounds:
+Function 1  —  0 new max(es) across 13 rounds:
    (no round beat the initial-data best)
 
-Function 2  —  3 new max(es) across 11 rounds:
+Function 2  —  3 new max(es) across 13 rounds:
    R4   Y=0.62052      gain=+0.00931   (0.6994, 0.9696)
    R5   Y=0.67521      gain=+0.05469   (0.7030, 0.1741)
    R9   Y=0.72173      gain=+0.04652   (0.6863, 0.8694)
 
-Function 3  —  2 new max(es) across 11 rounds:
+Function 3  —  2 new max(es) across 13 rounds:
    R1   Y=-0.022984    gain=+0.01185   (0.4000, 0.4000, 0.5000)
    R11  Y=-0.017382    gain=+0.005602   (0.6767, 0.6985, 0.3814)
 
-Function 4  —  3 new max(es) across 11 rounds:
+Function 4  —  5 new max(es) across 13 rounds:
    R1   Y=-0.38486     gain=+3.641   (0.4444, 0.4444, 0.3333, 0.4444)
    R2   Y=-0.036574    gain=+0.3483   (0.3716, 0.4437, 0.3910, 0.4416)
    R5   Y=0.30404      gain=+0.3406   (0.3450, 0.4428, 0.4091, 0.4115)
+   R12  Y=0.64095      gain=+0.3369   (0.4102, 0.4274, 0.4069, 0.3545)
+   R13  Y=0.65419      gain=+0.01324   (0.3604, 0.3782, 0.3526, 0.4190)
 
-Function 5  —  4 new max(es) across 11 rounds:
+Function 5  —  5 new max(es) across 13 rounds:
    R1   Y=1650.7       gain=+561.9   (0.3333, 0.7778, 1.0000, 0.8889)
    R2   Y=1834.1       gain=+183.4   (0.4772, 0.5845, 0.9807, 0.9988)
    R7   Y=4069.3       gain=+2235   (0.4221, 0.9881, 0.9970, 0.9778)
    R11  Y=6281.5       gain=+2212   (0.9973, 0.9906, 0.8819, 0.9775)
+   R13  Y=7078.5       gain=+797   (0.9866, 0.9534, 0.9924, 0.9775)
 
-Function 6  —  2 new max(es) across 11 rounds:
+Function 6  —  2 new max(es) across 13 rounds:
    R2   Y=-0.29023     gain=+0.424   (0.4243, 0.2976, 0.5111, 0.7324, 0.1505)
    R10  Y=-0.18152     gain=+0.1087   (0.4847, 0.4425, 0.6344, 0.7815, 0.0152)
 
-Function 7  —  3 new max(es) across 11 rounds:
+Function 7  —  3 new max(es) across 13 rounds:
    R1   Y=2.317        gain=+0.952   (0.0000, 0.3333, 0.3333, 0.3333, 0.3333, 0.6667)
    R2   Y=2.5441       gain=+0.2271   (0.0052, 0.2594, 0.5189, 0.3146, 0.2761, 0.7362)
    R3   Y=2.9735       gain=+0.4294   (0.1612, 0.2864, 0.4012, 0.2899, 0.2975, 0.6096)
 
-Function 8  —  5 new max(es) across 11 rounds:
+Function 8  —  7 new max(es) across 13 rounds:
    R1   Y=9.7833       gain=+0.1848   (0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.5000, 0.0000, 0.5000)
    R6   Y=9.8194       gain=+0.03611   (0.0436, 0.1733, 0.1067, 0.2017, 0.3415, 0.3491, 0.0560, 0.5739)
    R8   Y=9.8345       gain=+0.01513   (0.0223, 0.1696, 0.1212, 0.2093, 0.3362, 0.3796, 0.0837, 0.5573)
    R10  Y=9.839        gain=+0.004444   (0.0463, 0.1498, 0.0906, 0.1846, 0.3110, 0.3789, 0.1129, 0.5878)
    R11  Y=9.8653       gain=+0.02629   (0.0654, 0.1249, 0.0987, 0.1946, 0.3404, 0.3912, 0.1324, 0.5571)
+   R12  Y=9.8859       gain=+0.02065   (0.0883, 0.1294, 0.1127, 0.2214, 0.3664, 0.3991, 0.1603, 0.5828)
+   R13  Y=9.8908       gain=+0.004926   (0.0546, 0.0833, 0.1643, 0.2087, 0.4228, 0.3536, 0.2210, 0.6409)
 
 
 Gains are presented in original output units (not transformed values)
-Function 1 is the only one where the process has so far failed to identify a new maximum. 
+Function 1 is the only one where the process failed to identify a new maximum. 
 
 
 
