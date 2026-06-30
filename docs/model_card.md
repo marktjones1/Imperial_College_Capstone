@@ -17,18 +17,20 @@ This optimisation approach was developed for the 2026 Black Box Optimisation (BB
 
 ### Appropriate Uses
 This approach is intended for:
-•	Expensive black-box optimisation problems.
-•	Problems where objective function evaluations are costly.
-•	Continuous optimisation tasks with limited evaluation budgets.
-•	Sequential experimentation where new observations can be incorporated iteratively.
+
+-Expensive black-box optimisation problems.
+-Problems where objective function evaluations are costly.
+-Continuous optimisation tasks with limited evaluation budgets.
+-Sequential experimentation where new observations can be incorporated iteratively.
 Examples given in the project background documentation include radiation detection, hyperparameter tuning, and scientific drug experimentation.
 
 ### Inappropriate Uses
 This approach should not be used for:
-•	High-dimensional optimisation problems beyond the practical limits of Gaussian Process modelling.
-•	Situations requiring immediate real-time decisions.
-•	Problems where objective functions are highly discontinuous or noisy.
-•	Applications requiring guarantees of finding a global optimum.
+
+-High-dimensional optimisation problems beyond the practical limits of Gaussian Process modelling.
+-Situations requiring immediate real-time decisions.
+-Problems where objective functions are highly discontinuous or noisy.
+-Applications requiring guarantees of finding a global optimum.
 
 
 
@@ -140,39 +142,42 @@ Gains in original output units. Function 1 is the only function where no round e
 
 ### Assumptions
 The optimisation strategy assumes:
-•	The objective function is sufficiently smooth and lacking discontinuities.
-•	The objective function can be reasonably approximated by a Gaussian Process.
-•	Historical evaluations provide useful information about unexplored regions.
-•	Data transformations can be applied appropriately to improve surrogate model quality.
+
+-The objective function is sufficiently smooth and lacking discontinuities.
+-The objective function can be reasonably approximated by a Gaussian Process.
+-Historical evaluations provide useful information about unexplored regions.
+-Data transformations can be applied appropriately to improve surrogate model quality.
 
 ### Limitations
 Several limitations were identified:
-•	Gaussian Processes scale poorly with increasing dimensionality and dataset size.
-•	Performance depends heavily on kernel selection and hyperparameter tuning.
-•	Acquisition functions may become trapped in local optima, or
-•	Acquisition functions may fail to distinguish between valuable and non-valuable areas if the noise parameter collapses to zero, meaning that search is random rather than driven by exploitation/exploration criteria.
-•	Transformations are function specific. A transformation that improves performance on one function may degrade performance on another.
-•	The approach is sensitive to early observations because initial samples influence subsequent exploration.
+
+-Gaussian Processes scale poorly with increasing dimensionality and dataset size.
+-Performance depends heavily on kernel selection and hyperparameter tuning.
+-Acquisition functions may become trapped in local optima, or
+-Acquisition functions may fail to distinguish between valuable and non-valuable areas if the noise parameter collapses to zero, meaning that search is random rather than driven by exploitation/exploration criteria.
+-Transformations are function specific. A transformation that improves performance on one function may degrade performance on another.
+-The approach is sensitive to early observations because initial samples influence subsequent exploration.
 
 ### Failure Modes
 Potential failure modes include:
-•	Over-exploitation of regions incorrectly predicted to be promising.
-•	Poor uncertainty estimates leading to inadequate exploration.
-•	Poor fitting of the surrogate model.
-•	Reduced effectiveness on highly irregular or discontinuous functions.
-•	Insufficient number of iterations available to converge on an optimal value
+
+-Over-exploitation of regions incorrectly predicted to be promising.
+-Poor uncertainty estimates leading to inadequate exploration.
+-Poor fitting of the surrogate model.
+-Reduced effectiveness on highly irregular or discontinuous functions.
+-Insufficient number of iterations available to converge on an optimal value
 
 
 
 ## Ethical considerations 
 Although developed for a benchmark optimisation challenge, transparency remains important for reproducibility and responsible deployment.
 Documenting the optimisation process enables:
-'''
-•	Reproduction of results by other researchers.
-•	Independent evaluation of methodological choices.
-•	Identification of assumptions and limitations.
-•	Adaptation of the approach to other optimisation domains.
-'''
+
+-Reproduction of results by other researchers.
+-Independent evaluation of methodological choices.
+-Identification of assumptions and limitations.
+-Adaptation of the approach to other optimisation domains.
+
 This is particularly important for this project where the strategy, code and approaches have evolved significantly as the rounds progressed.
 
 
