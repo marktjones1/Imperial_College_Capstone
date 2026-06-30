@@ -25,8 +25,8 @@ e.g. 0.002171-0.162139-0.092350-0.212842-0.347231-0.390262-0.052474-0.526157
 
 ## Collection process
 
-The queries were generated iteratively using a Bayesian Optimization pipeline. A Gaussian process was fitted to the dataset for each function, and then a ucb acquisition was used to select the next query point. (The exception was function 1 where the Bayesian optimization was paused and replaced with a standard grid search due to challenges fitting the function)
-The collection process is ongoing and is expected to conclude in July 2026, at which point 13 rounds will have been completed.
+The queries were generated iteratively using a Bayesian Optimization pipeline. A Gaussian process was fitted to the dataset for each function, and then a UCB acquisition was used to select the next query point. (The exception was function 1 where the Bayesian optimization was paused and replaced with a Sobol  maximin coverage search due to challenges fitting the function)
+The collection process ran from April to July 2026, concluding after 13 weekly rounds.
 The exact details of the fitting approach evolved round by round. The main summary document in GitHub details the changes made to each function’s strategy.
 The overall objective of the exercise was to determine the maximum of each function, so the sampling approach was designed around this objective, resulting in data clustering near likely maxima
 
@@ -47,5 +47,5 @@ The data in this repository is intended for use in benchmarking Bayesian Optimis
 ### Inappropriate uses 
 The evaluations are function-specific and are not applicable in other contexts or situations. The data was sampled with the objective of determining the maximum value of each function. For this reason the data should not be taken as representative of the function as a whole, and should not be used for any other metrics or inference on the function’s behaviour.
 
-Distribution and maintenance: 
+### Distribution and maintenance: 
 The official dataset was archived in the capstone portal via online submissions and email notification of results in txt format. As the capstone portal location is password protected, I have replicated the dataset here in this GitHub repository. This dataset is maintained by me (Mark Jones) and will not be updated after the project concludes in July 2026. This GitHub repository serves as the permanent archive.
