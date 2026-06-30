@@ -29,7 +29,9 @@ Each week one new input vector may be requested for each function, producing one
 
 Each input must be a value in the range [0,1] (inclusive). The range of values for the output is not specified.
 All inputs are uploaded to the capstone portal in the following format:
-•	x1-x2-x3-...-xn, where each xᵢ is in [0,1], specified to six decimal places (e.g. 0.123456).
+
+-  x1-x2-x3-...-xn, where each xᵢ is in [0,1], specified to six decimal places (e.g. 0.123456).
+
 The corresponding values are returned up to 24 hours later via email notification as scalar values in csv format.
 Example input (Function 2):
 0.123456-0.654321
