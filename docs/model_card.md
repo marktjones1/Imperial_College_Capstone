@@ -167,11 +167,12 @@ Potential failure modes include:
 ## Ethical considerations 
 Although developed for a benchmark optimisation challenge, transparency remains important for reproducibility and responsible deployment.
 Documenting the optimisation process enables:
+'''
 •	Reproduction of results by other researchers.
 •	Independent evaluation of methodological choices.
 •	Identification of assumptions and limitations.
 •	Adaptation of the approach to other optimisation domains.
-
+'''
 This is particularly important for this project where the strategy, code and approaches have evolved significantly as the rounds progressed.
 
 
