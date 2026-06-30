@@ -1,9 +1,13 @@
 # Imperial College Capstone
 Capstone Project for Imperial College Machine Learning Course
 
+## Summary
+This project tackled eight unknown "black box" functions, where the only way to learn about each was to evaluate it at chosen input points — but we were limited to one evaluation per function per week, for thirteen weeks. The goal was to find the input settings that produced the highest output value for each function. By using Bayesian optimisation — a method that uses each result to decide intelligently where to look next — we improved seven of the eight functions over their starting values, in one case more than quadrupling the initial best. Every decision was documented so the process can be reviewed, reproduced or applied to similar problems.
+
+
 ## Section 1: Project Overview
 
-The purpose of the project is to understand the nature of 8 different “black box” functions. The exact nature of each function is unknown, the only starting information given is the output value of the function for a small set of inputs. Over the course of 13 weeks, more observations of each function can be made, with the ultimate objective of learning an approximation of each function sufficient to identify high-performing input regions under a strict query budget. The main task is to determine the set of input values that maximises the output value for each function. However, it is also important to demonstrate a robust and methodical approach for tackling the problem and to show understanding of ML techniques. This is a black-box optimization problem.
+The purpose of the project was to understand the nature of 8 different “black box” functions. The exact nature of each function was unknown, the only starting information given was the output value of the function for a small set of inputs. Over the course of 13 weeks, more observations of each function were collected, with the ultimate objective of learning an approximation of each function sufficient to identify high-performing input regions under a strict query budget. The main task was to determine the set of input values that maximises the output value for each function. However, it was also important to demonstrate a robust and methodical approach for tackling the problem and to show understanding of ML techniques. This was a black-box optimization problem.
 This mirrors real-world scenarios such as hyperparameter tuning or experimental optimisation, where evaluations are costly and the underlying system is not directly observable.
 
 ## Section 2: Inputs and Outputs
@@ -59,6 +63,14 @@ More details are available in the model card and the week by week submission det
 - [Model card](docs/model_card.md) — the optimisation approach in detail
 - [References](docs/references.md) — academic papers referenced in the project
 - [Pipeline notebook](notebooks/Capstone_BBO.ipynb) — the working BBO pipeline code
+
+## How to run
+
+The full pipeline is in `notebooks/Capstone_BBO.ipynb`. To reproduce:
+1. Clone the repository
+2. Install dependencies: `pip install -r requirements.txt`
+3. Open the notebook from the `notebooks/` folder (Jupyter must be launched from there for the relative paths to resolve)
+4. Run cells in order
 
 ## Environment
 
