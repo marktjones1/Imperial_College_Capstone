@@ -39,35 +39,54 @@ The main stages of the process were:
 2) Transformation applied to data to improve model fit
 3) Fit data to Gaussian Process surrogate model, using appropriate kernel
 4) Apply an acquisition function, tuned to apply an appropriate balance between exploration and exploitation
-5) Evaluate this acquisition function on a grid of points covering the search space. The grid was generated using Latin Hypercube sampling to effectively cover the search space.
+5) Evaluate this acquisition function on a grid of points covering the search space. The grid was generated using Latin Hypercube sampling to effectively cover the search space, replaced with Sobol sequence from round 6.
 6) Select the highest scoring point as the next evaluation point and submit in the Capstone portal.
 
 The evolution of the strategy was: 
 
 ### Early Rounds
--Standard Gaussian Process surrogate modelling using rbf kernel
--Basic acquisition function tuning. Biased to exploration (ucb with beta parameter = 2.5)
+-Standard Gaussian Process surrogate modelling using RBF kernel
+-Basic acquisition function tuning. Biased to exploration (UCB with beta parameter = 2.5)
 -Limited preprocessing.
 -Latin Hypercube for grid coverage
 
 ### Intermediate Rounds
 -	Alternative kernel approaches introduced
 -	Additional transformation approaches
--	Reduction in ucb beta parameter in acquisition function to begin pivot to exploitation-based search.
+-	Reduction in UCB beta parameter in acquisition function to begin pivot to exploitation-based search.
 -	Introduction of “exclusion radius” parameter to ensure that optimization doesn’t get stuck evaluating points in the same area of the grid
 
 ### Later Rounds
--	Multiple kernel approach introduced for some functions
+-	Multi-kernel mode: for functions 3, 6 and 7, three kernels (Matérn-1.5, Matérn-2.5, RBF) were fitted in parallel and a candidate point selected via Thompson sampling across all three, hedging against committing to a single — possibly wrong — assumption about the function's smoothness.
 -	Additional filtering of the search space using Support Vector machine model
 -	“Turbo” approach introduced for function 8
--	Function 1 removed from Bayesian optimization process in favour of pure coverage-based search strategy, pending finding a plausible maximum region.
--	Further reduction in ucb beta parameter to continue pivot to exploitation.
+-	Function 1 removed from Bayesian optimization process in favour of Sobol maximin coverage sampling, which continued through to the end of the project without finding a region of higher value.
+-	Further reduction in UCB beta parameter to continue pivot to exploitation.
 
 
 
 ## Performance 
 Performance was evaluated using the objective values obtained for each of the eight black-box functions. The main metric tracked was best objective value discovered.
 Progress was intentionally nonlinear, it was necessary in earlier rounds to evaluate points in the function space that were unlikely to be  optimal, but would assist in building an overall picture of the function behaviour that could be refined in later rounds.
+
+## Performance
+
+The pipeline improved seven of the eight functions over their initial-data bests.
+
+| Function | Initial best | Final best | New maxima | Improvement found at round |
+|----------|-------------|-----------|------------|---------------------------|
+| 1 | ~0 | ~0 | 0 | – |
+| 2 | 0.611 | 0.722 | 3 | R9 |
+| 3 | -0.035 | -0.017 | 2 | R11 |
+| 4 | -4.03 | 0.654 | 5 | R13 |
+| 5 | 1089 | 7078 | 5 | R13 |
+| 6 | -0.714 | -0.182 | 2 | R10 |
+| 7 | 1.365 | 2.973 | 3 | R3 |
+| 8 | 9.598 | 9.891 | 7 | R13 |
+
+### New maxima by round (per function)
+
+
 
 Function 1  —  0 new max(es) across 13 rounds:
    (no round beat the initial-data best)
@@ -162,4 +181,4 @@ This is particularly important for this project where the strategy, code and app
 ## Reflection
 
 The approach is a combination of formal optimization techniques such as Bayesian optimization, augmented by human judgement to identify edge cases or areas where the standard approach needs to be refined.
-The documentation structure provides high level details of the approach followed. More detail is available in the round by round logs saved at https://github.com/marktjones1/Imperial_College_Capstone/new/main
+The documentation structure provides high level details of the approach followed. More detail is available in the round by round logs saved at [https://github.com/marktjones1/Imperial_College_Capstone/new/main](https://github.com/marktjones1/Imperial_College_Capstone/tree/main/results)
