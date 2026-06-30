@@ -93,7 +93,9 @@ Function 1  —  0 new max(es) across 13 rounds:
 
 Function 2  —  3 new max(es) across 13 rounds:
    R4   Y=0.62052      gain=+0.00931   (0.6994, 0.9696)
+   
    R5   Y=0.67521      gain=+0.05469   (0.7030, 0.1741)
+   
    R9   Y=0.72173      gain=+0.04652   (0.6863, 0.8694)
 
 Function 3  —  2 new max(es) across 13 rounds:
